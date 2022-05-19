@@ -1,0 +1,40 @@
+.login{
+    background: linear-gradient( to bottom right,#333333,#6e3302);    
+    input{
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    }
+    .login-img img{
+        width: 100%;
+        object-fit: cover;
+    }
+    .btn-log{
+        background-image: linear-gradient(#d89a53, #e0af45) ;
+        background-repeat: no-repeat;
+        background-size: 0 100%;
+        background-position-x: right;
+    
+        transition: background-size 500ms;
+    
+        &:hover {
+            color: #ffff;
+            background-size: 100% 100%;
+            background-position-x: left;
+        }
+    }
+    .btn-gg img{    
+        width: 20px;
+        height: 20px;
+        object-fit: cover;
+    }
+    .form-password{
+        .input{
+            position: relative;
+        }
+        i{
+            color: gray;
+            position: absolute;
+            right:2%;
+            top: 25%;
+        }
+    }
+}

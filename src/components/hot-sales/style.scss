@@ -1,0 +1,20 @@
+.sale{
+.slick-prev:before,
+.slick-next:before {
+  color: gray;
+}
+.slide-wrapped{
+    // background: rgb(15,165,255);
+background: linear-gradient(90deg, rgba(15,165,255,1) 0%, rgba(7,52,161,1) 36%, rgba(100,46,215,1) 65%, rgba(222,0,255,1) 100%);
+
+}
+.addCart button{
+  background-color: #031564;
+}
+.slick-dots{
+  li button:before{
+      display: none !important;
+  }}
+
+
+}

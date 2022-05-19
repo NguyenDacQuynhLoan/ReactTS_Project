@@ -1,0 +1,29 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  
+}
+code {
+  // font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  //   monospace;
+  font-family: 'Roboto', sans-serif;
+
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind screens;
+
+@use 'styles/_colors.scss';
+@use '~nprogress/nprogress';
+
+.wrapped{
+  width: 80%;
+  margin: auto;
+}

@@ -1,0 +1,25 @@
+.profile{
+    .open i{
+        margin-right: -10px !important;
+        &::before{
+            font-size: 25px;
+        }
+    }
+    .open {
+        visibility: hidden;
+        transform: translateX(-100%);
+        transition: 
+        transform 500ms 
+        visibility 0ms 500ms
+        ;
+        button {
+            visibility: visible;
+            transform: translateX(0);
+            transition: transform 500ms;
+
+        }
+        & button:active ~ .profile-person{
+            transform:  translateX(100px);
+        }
+    }
+}

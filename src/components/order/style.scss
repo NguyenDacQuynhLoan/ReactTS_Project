@@ -1,0 +1,26 @@
+.productOrder {
+  // img {
+  //   height: 100px;
+  //   width: 100%;
+  //   object-fit: fill;
+  // }
+  input[type='number'] {
+    width: 50px;
+  }
+
+  .prod-info {
+    flex: 0 0 50%;
+    .info-img {
+      flex: 0 0 25%;
+    }
+  }
+  .prod-price {
+    flex: 0 0 15%;
+  }
+  .prod-quantity {
+    flex: 0 0 25%;
+  }
+  .pro-delete {
+    flex: 0 0 10%;
+  }
+}

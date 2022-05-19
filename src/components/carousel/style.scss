@@ -1,0 +1,21 @@
+.carousel{
+    
+.slick-slider .slick-initialized{
+    position: relative;
+    height: 70vh !important;
+}
+.carousel{
+    margin: 5px;
+}
+.slick-dots{
+    li button:before{
+        color: white !important;
+    }
+    padding: 2em 0em !important;
+    position:absolute;
+    bottom: 0 !important;
+}
+.slick-next:before , .slick-prev:before{
+    color: white !important;
+}
+}

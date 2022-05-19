@@ -1,0 +1,29 @@
+
+.payment-container{
+    .method-card img{
+            width: 60px;
+            height: 50px;
+            margin: 0px 5px;
+            padding: 0px 5px;
+    
+            border: solid 1px rgb(231, 231, 231);
+            border-radius: 5px;
+    
+            object-fit: contain;
+            cursor: pointer;
+            background-color: #ffff;
+    }
+    
+    
+    .method-info i{
+        width: 32px;
+    }
+    // .btn-member{
+    //     background-color: #3C78C0;
+    //       color: #ffff;
+    // }
+    // .btn-guest{
+    //     border: 2px solid #3C78C0;
+    //     color: #3C78C0;
+    // }
+}
