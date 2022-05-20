@@ -14,50 +14,17 @@ export default function Card(props: any) {
   const [data, setData] = useState<any>();
 
   const dispatch = useAppDispatch();
-  const cartFromRedux = useAppSelector((state: RootState) => state.cart).cart;
-  // const navigate = useNavigate();
-  // let prod: any = [];
-  // let prod = JSON.parse(localStorage.getItem('user')!) || [];
+  // const cartFromRedux = useAppSelector((state: RootState) => state.cart).cart;
 
   useEffect(() => {
     setData(props.data);
   }, [props.data]);
-  const addCart = (item: any, id: string) => {
-    if (cartFromRedux.length === 0) {
-      dispatch(addToCart(item));
-      toast.success('Bạn đã thêm vào giỏ hàng !', {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
-    } else {
-      let flagUpdate: boolean = false;
-      cartFromRedux.forEach((element: any, index: number) => {
-        if (element.id === id) {
-          dispatch(quantityPlusCart(index));
-          toast.success('Bạn đã thêm vào giỏ hàng !', {
-            position: toast.POSITION.BOTTOM_RIGHT,
-          });
-          flagUpdate = true;
-          return;
-        }
-      });
-      if (!flagUpdate) {
-        // cartFromRedux.push(item);
-        dispatch(addToCart(item));
-        toast.success('Bạn đã thêm vào giỏ hàng !', {
-          position: toast.POSITION.BOTTOM_RIGHT,
-        });
-      }
-    }
-
-    // dispatch(addToCart(prod));
-
-    // localStorage.setItem('user', JSON.stringify(prod));
+  const addCart = (item: any) => {
+    dispatch(addToCart(item));
+    toast.success('Bạn đã thêm vào giỏ hàng !', {
+      position: toast.POSITION.BOTTOM_RIGHT,
+    });
   };
-  // const convertStar = () => {
-  //   data.forEach((element: any) => {
-  //     console.log(element.numSales / 5 / 100);
-  //   });
-  // };
   return (
     <>
       {data === undefined
@@ -86,7 +53,7 @@ export default function Card(props: any) {
 
                   <div className="addCart flex">
                     <button
-                      onClick={() => addCart(prod, prod.id)}
+                      onClick={() => addCart(prod)}
                       className=" btn w-2/5 font-bold py-2  bg-blue-800 rounded text-white"
                     >
                       <i className="fa fa-cart-plus"></i>{' '}

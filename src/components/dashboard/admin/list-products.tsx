@@ -33,6 +33,8 @@ export default function AdminListProduct() {
         let availableProduct = productsFirebase.filter(
           (element: any) => element.isDeleted == false
         );
+        console.log(availableProduct);
+        
         setProduct(availableProduct);
       })
       .catch((err) => {
@@ -121,8 +123,7 @@ export default function AdminListProduct() {
                   <ul>
                     <li>Loại : {info.category}</li>
                     <li>Hãng : {info.brand}</li>
-                    <li>Thông số : </li>
-                    <li>Khuyến mãi : %</li>
+                    <li>Khuyến mãi :{info.discPercent?info.discPercent + "%":"--"}</li>
                     <li>Còn hàng : {info.available}</li>
                   </ul>
                 </div>

@@ -24,8 +24,8 @@ export default function DetailModal(props: any) {
   }, [props]);
 
   return (
-    <div className=" fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-5">
-      <div className="w-2/5 p-6 bg-white divide-y divide-gray-500">
+    <div className=" fixed inset-0 flex items-end justify-center bg-gray-800 bg-opacity-40 md:lg:fixed md:lg:inset-0 md:lg:flex  md:lg:items-center md:lg:justify-center md:lg:bg-gray-800 md:lg:bg-opacity-30">
+      <div className="w-full  p-6 bg-white divide-y divide-gray-500 md:lg:w-2/5 md:lg:p-6 md:lg:bg-white md:lg:divide-y md:lg:divide-gray-500">
         <div className="flex items-center justify-between">
           <h3 className="text-2xl">Thông tin chi tiết</h3>
           <svg

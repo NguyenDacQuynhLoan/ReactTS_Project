@@ -1,20 +1,35 @@
-import { db } from '../../../queries/api/firebase';
+import { db, storage, storageRef } from '../../../queries/api/firebase';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, MutableRefObject, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { RootState } from 'store/store';
 import { addUserInfo } from 'store/reducer/userInfo';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 export default function UserEdit() {
   const userInfo = useAppSelector((state: RootState) => state.userInfo).userInfo;
   const [isEdit, setEdit] = useState(true);
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   // const [user,setUser]=useState<IUser|undefined>()
   const handleEdit = () => {
     setEdit(true);
   };
 
+  const uploadAvater = (e: any): void => {
+    const files = Array.from(e.target.files);
+    uploadBytes(storageRef, files[0] as any).then((snapshot) => {
+      console.log(snapshot.metadata);
+      getDownloadURL(ref(storage, snapshot.metadata.fullPath)).then(async (item) => {
+        let { photoURL = item, ...rest } = userInfo;
+        let newUserInfo = Object.assign(rest, { photoURL: item });
+        const userDoc = doc(db, 'users', userInfo.userID);
+        updateDoc(userDoc, newUserInfo);
+        dispatch(addUserInfo(newUserInfo));
+        getUser();
+      });
+    });
+  };
   const getUser = async () => {
     const docRef = doc(db, 'users', userInfo.userID);
     const getData = await getDoc(docRef);
@@ -34,14 +49,14 @@ export default function UserEdit() {
       setEdit(false);
       const userDoc = doc(db, 'users', userInfo.userID);
       updateDoc(userDoc, newChange);
-      getUser()
+      getUser();
       toast.success('Đã cập nhật thông tin !', {
         position: toast.POSITION.BOTTOM_RIGHT,
       });
     }
   };
   return (
-    <div className="w-full flex my-3 flex-row md:lg:w-full md:lg:mx-auto md:lg:flex md:lg:flex-row ">
+    <div className="w-full flex my-3 flex-row md:lg:w-5/6 md:lg:mx-auto md:lg:flex md:lg:flex-row ">
       <div className=" w-full items-center justify-center  md:lg:w-1/4 md:lg:flex md:lg:flex-col md:lg:justify-center md:lg:mt-12 md:lg:mx-5">
         <img
           className="w-36 h-36 p-2 mx-auto rounded-full border-2 
@@ -54,7 +69,7 @@ export default function UserEdit() {
           alt=""
         />
         <button className="w-full mt-3 p-1 rounded-full font-semibold bg-yellow-400 font-semibold md:lg:mt-5 md:lg:mx-12 md:lg:py-2  md:lg:bg-yellow-400 md:lg:rounded-full md:lg:font-semibold md:lg:text-white ">
-          <input hidden type="file" name="fileAvatar" id="fileAvatar" />
+          <input onChange={uploadAvater} hidden type="file" name="fileAvatar" id="fileAvatar" />
           <label htmlFor="fileAvatar">
             <i className="fas fa-cloud-upload mx-2"></i>
             <span>Upload</span>
@@ -62,11 +77,11 @@ export default function UserEdit() {
         </button>
       </div>
 
-      <form onSubmit={handleSubmit} className="w-3/5 md:lg:w-3/4 md:lg:mt-12">
+      <form onSubmit={handleSubmit} className="w-3/5  md:lg:w-3/4 md:lg:mt-12">
         <div>
           <div className=" m-3">
             <div className="flex items-center ">
-              <p  className="font-semibold text-2xl  pb-3 pt-2 ">Hồ sơ của tôi</p>
+              <p className="font-semibold text-2xl  pb-3 pt-2 ">Hồ sơ của tôi</p>
             </div>
             <div className="">
               <div className="flex flex-col">

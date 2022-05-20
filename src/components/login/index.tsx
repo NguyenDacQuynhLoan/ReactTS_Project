@@ -102,25 +102,21 @@ export default function Login() {
         name: data.user.email.replace('@gmail.com', ''),
         userID: data.user.uid,
         email: data.user.email,
-        password: passwordRef.current?.value,
         isActive: true,
         phoneNumber: data.user.phoneNumber,
         photoURL: data.user.photoURL,
       });
+      const docRef = doc(db, 'users', data.user.uid);
+      const getData = await getDoc(docRef);
+      if (getData.exists()) {
+        console.log(getData.data());
+        await dispatch(addUserInfo(getData.data()));
+        navigate('/user')
+        
+      } else {
+        console.log('Không tồn tại thông tin');
+      }
     });
-    // const docRef = doc(db, 'users', currentUser.uid);
-    // const getData = await getDoc(docRef);
-    // if (getData.exists()) {
-    //   console.log(getData.data());
-    //   dispatch(addUserInfo(getData.data()));
-    //   if(getData.data().role == 'admin'){
-    //     navigate('/admin')
-    //   }else{
-    //     navigate('/user')
-    //   }
-    // } else {
-    //   console.log('Không tồn tại thông tin');
-    // }
     // .catch((error) => {
     //   console.log(error);
     // });
@@ -149,7 +145,7 @@ export default function Login() {
                 Tài khoản đăng nhập / Gmail
               </label>
               <input
-                placeholder="ac: admin@gmail.com"
+                placeholder="Nhập tên tài khoản"
                 ref={emailRef}
                 className="rounded-lg p-2"
                 type="text"
@@ -164,7 +160,7 @@ export default function Login() {
               </div>
               <div className="input flex justify-between">
                 <input
-                  placeholder="pw: 123123"
+                  placeholder="Nhập mật khẩu"
                   ref={passwordRef}
                   className="rounded-lg p-2 w-full"
                   type="password"

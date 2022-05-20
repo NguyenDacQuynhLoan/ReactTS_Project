@@ -5,38 +5,38 @@ import formatCurrency from '../currency';
 import { useEffect } from 'react';
 export default function Summary() {
   const cartFromRedux = useAppSelector((state: RootState) => state.cart).cart;
-  const invoiceFromRedux = useAppSelector((state:RootState)=>state.invoice).invoice
-  useEffect(()=>{
-    getDateNow()
-  },[])
-  const getDateNow =()=>{
-   
-  }
+  const invoiceFromRedux = useAppSelector((state: RootState) => state.invoice).invoice;
+  useEffect(() => {
+    getDateNow();
+  }, []);
+  const getDateNow = () => {};
   // const cartInvoice = cartFromRedux.slice(0, 4);
   return (
-    <div className="summary bg-gray-300 ml-4 py-1 mt-3 rounded">
+    <div className="bg-gray-300 m-2 py-1 mt-3 rounded md:lg:bg-gray-300 md:lg:ml-4 md:lg:py-1 md:lg:mt-3 md:lg:rounded">
       <div className="mx-11 my-6">
         <div className="summary-heading my-2">
           <span className="uppercase font-semibold text-2xl">Hóa đơn mua hàng</span>
         </div>
-        {cartFromRedux.map((element: any) => (
-          <div key={element.id} className="summary-product flex items-center my-2">
-            <div className="product-img mx-5">
-              <img className="rounded w-10 h-10" src={element.imgArray[0]} alt="" />
+        <div className="h-48  overflow-y-scroll">
+          {cartFromRedux.map((element: any) => (
+            <div key={element.id} className="summary-product flex items-center my-2">
+              <div className="product-img mx-5">
+                <img className="rounded w-10 h-10" src={element.imgArray[0]} alt="" />
+              </div>
+              <details className="product-info flex flex-col">
+                <summary>
+                  <span className="font-semibold">{element.name}</span>
+                </summary>
+                <span className="text-sm">Màu : Đen </span>
+                <span className="text-sm">Giá : {formatCurrency.format(element.price)}</span>
+                <span className="text-sm">Số lượng : 1</span>
+                <span className="text-sm">Loại : Mới 100%</span>
+              </details>
             </div>
-            <details className="product-info flex flex-col">
-              <summary>
-                <span className="font-semibold">{element.name}</span>
-              </summary>
-              <span className="text-sm">Màu : Đen </span>
-              <span className="text-sm">Giá : {formatCurrency.format(element.price)}</span>
-              <span className="text-sm">Số lượng : 1</span>
-              <span className="text-sm">Loại : Mới 100%</span>
-            </details>
-          </div>
-        ))}
+          ))}
+        </div>
         <hr />
-          {/* <button className='text-blue-500 font-semibold py-2 text-lg text-center w-full '>
+        {/* <button className='text-blue-500 font-semibold py-2 text-lg text-center w-full '>
             <span>Xem chi tiết </span>
             <i className="fa fa-plus "></i>
           </button> */}

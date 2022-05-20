@@ -5,11 +5,15 @@ import Form from "../../../components/payment/payForm";
 export default function PayAddress() {
 
   return (
-      <div className="flex wrapped justify-evenly">
-        <div className="w-2/5">
+      <div className="w-full flex flex-col md:lg:mx-auto  md:lg:flex md:lg:flex-row md:lg:w-4/5 md:lg:justify-evenly ">
+        <div className="w-full md:lg:hidden">
+        <Summary/>
+
+        </div>
+        <div className="w-full md:lg:w-2/5">
           <Form/>
         </div>
-        <div className="w-2/5 h-full">
+        <div className="hidden md:lg:block md:lg:w-2/5 ">
           <Summary/>
         </div>
       </div>

@@ -62,20 +62,16 @@ export default function UserOrders() {
     }
   };
   return (
-    <div className="w-full">
-      <div>
-        <div></div>
-      </div>
-
+    <div className="w-full min-h-screen">
       <div className=" flex w-full	">
         <div className="w-full  mx-4">
           {order.length > 0? 
           <div>
             {order.map((item: any) => (
-              <div>
+              <div className=''>
                 <div
                   key={item.id}
-                  className=" flex w-full  items-center justify-between my-3 border border-gray-600	"
+                  className="flex flex-col w-full  items-center justify-between my-3 border border-gray-600 md:lg:flex-row md:lg:flex w-full  md:lg:items-center md:lg:justify-between md:lg:my-3 md:lg:border md:lg:border-gray-600	"
                 >
                   <div className="btn-order cursor-pointer flex  h-full ">
                     <div className=" cursor-pointer  h-full">
@@ -131,7 +127,7 @@ export default function UserOrders() {
                   ''
                 )}
                 <div className="flex w-full justify-end">
-                  <div className="w-1/4">
+                  <div className="w-full text-right md:lg:w-1/4">
                     Tổng giá tiền :{' '}
                     <span className="text-red-500 font-semibold">
                       {formatCurrency.format(item.totalbill)}

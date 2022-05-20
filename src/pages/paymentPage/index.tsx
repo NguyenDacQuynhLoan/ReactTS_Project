@@ -19,7 +19,7 @@ export default function Payment() {
   }, []);
 
   return (
-    <div className="payment ">
+    <div className="payment">
       <div className="flex w-full justify-evenly mt-3">
         <Link to="/payment/address">
           <button className="bg-orange-400 font-bold rounded p-2  mb-2">1. Vận chuyển</button>

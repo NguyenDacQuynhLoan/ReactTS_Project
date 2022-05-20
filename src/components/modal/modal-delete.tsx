@@ -3,7 +3,9 @@ import { doc, updateDoc } from 'firebase/firestore';
 
 export default function DeleteModal(props: any) {
   const deletedController = () => {    
+    console.log(props.deleteData);
     if (props.deleteData) {
+      
       const deleted = doc(db, 'products', props.deleteData);
       const newChange = { isDeleted: true };
       updateDoc(deleted, newChange);
@@ -11,7 +13,7 @@ export default function DeleteModal(props: any) {
     props.isDelete(true);
   };
   return (
-    <div className=" fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-5">
+    <div className=" fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-5">
       <div className="max-w-sm p-6 bg-white divide-y divide-gray-500">
         <div className="flex items-center justify-between">
           <h3 className="text-2xl">Model Title</h3>

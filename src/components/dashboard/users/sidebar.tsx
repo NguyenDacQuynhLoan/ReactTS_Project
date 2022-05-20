@@ -1,19 +1,22 @@
 import { auth, db, logout, useAuth } from '../../../queries/api/firebase';
 import { useNavigate } from 'react-router-dom';
 import './sidebar.scss';
-import { useAppSelector } from 'store/hooks';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { RootState } from 'store/store';
 import { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
+import { cleanUserInfo } from 'store/reducer/userInfo';
 export default function UserSidebar(props: any) {
   const userInfo = useAppSelector((state: RootState) => state.userInfo).userInfo;
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const handleLogout = () => {
     logout(auth);
-    navigate('/login');
+    dispatch(cleanUserInfo(true));
     localStorage.clear();
+    navigate('/login');
   };
   return (
     <div className="flex h-full">
@@ -23,9 +26,9 @@ export default function UserSidebar(props: any) {
             <img
               className="w-20 h-20 rounded-full object-cover"
               src={
-                userInfo.photoURL?
-                userInfo.photoURL:
-                "https://john-mohamed.com/wp-content/uploads/2018/05/Profile_avatar_placeholder_large.png"
+                userInfo.photoURL
+                  ? userInfo.photoURL
+                  : 'https://john-mohamed.com/wp-content/uploads/2018/05/Profile_avatar_placeholder_large.png'
               }
               // src={userInfo.photoURL}
               alt=""
@@ -70,26 +73,26 @@ export default function UserSidebar(props: any) {
             </ul>
           </div>
         </div> */}
-       <div className="person-edit ml-5">
+        <div className="person-edit ml-5">
           <div className="my-4">
-            <p onClick={()=>console.log(userInfo)} className="ml-2 text-lg">Quản lý</p>
+            <p onClick={() => console.log(userInfo)} className="ml-2 text-lg">
+              Quản lý
+            </p>
 
             <ul className="ml-5 cursor-pointer">
               {/* <Link to={'/admin/products'}>
               <li className="hover:text-orange-500">Danh sách sản phẩm</li>
               </Link> */}
               <Link to={'/user/orders'}>
-              <li className="hover:text-orange-500">Đơn hàng</li>
+                <li className="hover:text-orange-500">Đơn hàng</li>
               </Link>
             </ul>
           </div>
           <div className="my-4">
             <p className="ml-2 text-lg">Thông tin cá nhân </p>
             <ul className="ml-5 cursor-pointer">
-            <Link to={'/user/edit'}>
-              <li  className="hover:text-orange-500">
-                Hồ sơ
-              </li>
+              <Link to={'/user/edit'}>
+                <li className="hover:text-orange-500">Hồ sơ</li>
               </Link>
               <li className="hover:text-orange-500">Địa chỉ</li>
               <li>

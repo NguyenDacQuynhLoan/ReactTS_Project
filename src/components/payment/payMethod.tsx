@@ -46,7 +46,7 @@ export default function Method() {
     });
   };
   return (
-    <div className="method">
+    <div className="method p-4 md:lg:p-0">
       <div className="method-select">
         <div>
           <div className="method py-4">
@@ -147,23 +147,22 @@ export default function Method() {
           </div>
           <div className="flex justify-between">
             <span>SĐT:</span>
-            <span>{userInfo.phone}</span>
+            <span>{deliveryFromRedux.numberDelivery}</span>
           </div>
         </div>
         <div className="flex flex-col">
           <span className="text-2xl">Thông tin cá nhân</span>
           <div className="flex justify-between">
             <span>Họ tên:</span>
-            <span>{userInfo.name}</span>
+            <span>{deliveryFromRedux.userDelivery}</span>
           </div>
           <div className="flex justify-between">
             <span>Địa chỉ:</span>
-            <span>{userInfo.address}</span>
+            <span>{deliveryFromRedux.addressDelivery}</span>
           </div>
         </div>
       </div>
-      <input type="checkbox" name="" id="" />
-      Đồng ý với điều khoản mua hàng và xác nhận đặt hàng
+
       <button
         onClick={() => {
           addOrder();

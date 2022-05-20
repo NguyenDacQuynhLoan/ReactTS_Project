@@ -7,14 +7,17 @@ export const userInfo = createSlice({
   reducers: {
     addUserInfo(state = initialState, action: PayloadAction<any>) {
       localStorage.setItem('role', JSON.stringify(action.payload));
-      console.log(action.payload);
-      
       return {
-        userInfo: action.payload,
+        userInfo : action.payload
       };
+    },
+    cleanUserInfo(state = initialState, action: PayloadAction<boolean>) {
+      if (action.payload == true) {
+        state.userInfo="";
+      }
     },
   },
 });
 
-export const { addUserInfo } = userInfo.actions;
+export const { addUserInfo, cleanUserInfo } = userInfo.actions;
 export default userInfo.reducer;

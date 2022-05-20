@@ -10,7 +10,7 @@ import {
 } from 'firebase/auth';
 import { getFirestore } from "firebase/firestore";
 import { useEffect, useState } from 'react';
-// import { firebase } from "firebase";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCpgBVYUP6CaACUvnH7J5D6DIi4g0MZFW4",
@@ -23,6 +23,9 @@ const firebaseConfig = {
 };
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
+export const storage = getStorage();
+export const storageRef = ref(storage, 'avatar');
+
 export const auth = getAuth(app);
 export const signup = (email, password) => {
   return createUserWithEmailAndPassword(auth, email, password)

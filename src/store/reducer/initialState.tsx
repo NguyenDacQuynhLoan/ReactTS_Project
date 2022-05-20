@@ -1,6 +1,6 @@
 const initialState = {
   inventory: [],
-  cart: [],
+  cart:  JSON.parse(localStorage.getItem('cart') || "[]"),
   invoice: [],
   filter: [],
   delivery:{},

@@ -4,8 +4,8 @@ export default function Footer() {
     <div>
       <div className="footer text-white py-5">
         <div className="wrapped">
-          <div className="footer-container flex justify-between">
-            <div className="store text-left">
+          <div className="footer-container flex flex-col md:lg:flex-row md:lg:flex justify-between">
+            <div className="hidden md:lg:block md:lg:text-left store text-left">
               <div className="title font-bold py-2">
                 <h5>Tìm cửa hàng</h5>
               </div>

@@ -14,14 +14,14 @@ export default function Announcement() {
         <div className="heading">
           <p className="text-xl pb-3">Cảm ơn bạn đã mua hàng</p>
         </div>
-        <div className="content w-1/2 mx-auto">
+        <div className="w-full mx-4  md:lg:w-1/2 md:lg:mx-auto">
           Cellphone xin cảm ơn quý khách đã mua sản phẩm tại hệ thống của chúng tôi . Trong trường
           hợp bạn muốn thắc mắc về chính sách hoặc quy trình đổi trả vui lòng gửi đến{' '}
           <a className="text-blue-500" href="mailto:@cellphone">
             loannguyen1456@gmail.com
           </a>
         </div>
-        <div className="btn  py-2 mt-2 mb-5 rounded-lg flex justify-center items-center w-1/6 mx-auto active:shadow-lg">
+        <div className="btn my-4 rounded-lg flex justify-center items-center w-full mx-auto active:shadow-lg md:lg:py-2 md:lg:mt-2 md:lg:mb-5 md:lg:rounded-lg md:lg:flex md:lg:justify-center md:lg:items-center md:lg:w-1/6 md:lg:mx-auto md:lg:active:shadow-lg">
           <Link to="/">
             <button>
               Tiếp tục mua sắm

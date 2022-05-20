@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { RootState } from 'store/store';
 import { addToDelivery } from 'store/reducer/invoice-address';
+import { toast } from 'react-toastify';
 export default function Form() {
   const userInfo = useAppSelector((state: RootState) => state.userInfo).userInfo;
   const navigate = useNavigate();
@@ -17,13 +18,17 @@ export default function Form() {
     e.preventDefault();
     const formValue = new FormData(e.target);
     let deliveryInfo = Object.fromEntries(formValue.entries());
-    dispatch(addToDelivery(deliveryInfo))
     if (!Object.values(deliveryInfo).includes('')) {
+      dispatch(addToDelivery(deliveryInfo))
       navigate('/payment/check');
+    }else{
+      toast.warning('Vui lòng kiểm tra lại thông tin', {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
     }
   };
   return (
-    <form onSubmit={handleSubmit} className="form">
+    <form onSubmit={handleSubmit} className="mx-5 md:lg:mx-0 form">
       <div className="form-container">
         <div className="contact flex flex-col my-3">
           <div className="contact-head  ing">
@@ -69,7 +74,7 @@ export default function Form() {
               <div className="w-1/2 flex flex-col">
                 <p className="pb-2">Số điện thoại :</p>
                 <input
-                  readOnly
+                  
                   name="numberDelivery"
                   defaultValue={userInfo.phoneNumber}
                   className="focus:outline-none border border-gray-300 font-bold  px-2 py-1  rounded"
@@ -80,7 +85,6 @@ export default function Form() {
             <div className="w-full flex flex-col ">
               <p className="pb-2">Địa chỉ:</p>
               <input
-                readOnly
                 name="addressDelivery"
                 defaultValue={userInfo.address}
                 className="focus:outline-none border border-gray-300 font-bold  px-2 py-1  rounded"

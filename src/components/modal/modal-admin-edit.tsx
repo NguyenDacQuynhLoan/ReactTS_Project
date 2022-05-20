@@ -25,7 +25,7 @@ export default function EditModal(props: any) {
   };
 
   return (
-    <div className="fixed inset-0 flex items-end justify-center bg-gray-800 bg-opacity-5 md:lg:fixed md:lg:inset-0 md:lg:flex  md:lg:items-center md:lg:justify-center md:lg:bg-gray-800 md:lg:bg-opacity-5">
+    <div className="fixed inset-0 flex items-end justify-center bg-gray-800 bg-opacity-5 md:lg:fixed md:lg:inset-0 md:lg:flex  md:lg:items-center md:lg:justify-center md:lg:bg-gray-800 md:lg:bg-opacity-30">
       <form
         onSubmit={editHandler}
         className="w-full h-3/5 p-6 bg-white divide-y divide-gray-500 md:lg:w-2/5 md:lg:p-6 md:lg:bg-white md:lg:divide-y md:lg:divide-gray-500"
