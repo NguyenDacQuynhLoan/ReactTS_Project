@@ -4,10 +4,15 @@
   //   width: 100%;
   //   object-fit: fill;
   // }
-  input[type='number'] {
-    width: 50px;
+  // input[type='number'] {
+  //   width: 50px;
+  // }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
-
+  
   .prod-info {
     flex: 0 0 50%;
     .info-img {

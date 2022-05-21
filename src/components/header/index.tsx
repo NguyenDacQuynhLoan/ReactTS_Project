@@ -4,6 +4,7 @@ import './style.scss';
 import { auth, logout, useAuth } from '../../queries/api/firebase';
 import { useAppSelector } from 'store/hooks';
 import { RootState } from 'store/store';
+import { cleanUserInfo } from 'store/reducer/userInfo';
 
 export default function Header(props: any) {
   const userInfo = useAppSelector((state: RootState) => state.userInfo).userInfo;
@@ -23,8 +24,9 @@ export default function Header(props: any) {
   // };
   const handleLogout = () => {
     logout(auth);
-    navigate('/login');
+    dispatch(cleanUserInfo(true));
     localStorage.clear();
+    navigate('/login');
   };
   return (
     <div className="header  ">
@@ -55,9 +57,6 @@ export default function Header(props: any) {
             </Link>
           </div>
           <div className="contact hidden md:block md:flex lg:block lg:flex w-1/2 flex gap-x-1 font-bold  justify-end  ml-4 cursor-pointer">
-            {/* <div className="contact-container flex mx-2">
-              <i className="fas fa-heart hover:text-orange-500 text-2xl"></i>
-            </div> */}
             {userInfo.role == 'admin' ? (
               ''
             ) : (
@@ -146,6 +145,7 @@ export default function Header(props: any) {
                 </div>
               </Link>
             </li>
+
             <li className="hover:bg-teal my-2">
               <Link
                 to={
@@ -167,6 +167,7 @@ export default function Header(props: any) {
                     <i className="fas fa-user hover:text-orange-500 text-2xl mx-1"></i>
                     {currentUser ? <span>{userInfo.name}</span> : <span>Tài khoản</span>}
                   </div>
+
                   <div className="">
                     <button className=" ">
                       <i className={openTab ? 'hidden' : 'fa-solid fa-caret-left px-3 mt-1'}></i>
@@ -174,52 +175,57 @@ export default function Header(props: any) {
                     <i className={openTab ? 'fa-solid fa-sort-down mb-2 px-3 mt-1' : 'hidden'}></i>
                   </div>
                 </div>
-
-                {userInfo.role == 'admin' ? (
-                  /* Admin */
+                {currentUser ? (
                   <div>
-                    {openTab ? (
-                      <div className="flex flex-col w-1/2 items-start ml-12">
-                        <button onClick={() => setOpen(false)} className="my-3">
-                          <Link to={'/admin/products'}>
-                            <span className=" text-left"> Danh sách sản phẩm</span>
-                          </Link>
-                        </button>
-                        <button onClick={() => setOpen(false)} className="my-3">
-                          <Link to={'/admin/orders'}>
-                            <span className="text-left"> Đơn hàng</span>
-                          </Link>
-                        </button>
-                        <button onClick={() => setOpen(false)} className="my-3">
-                          <Link to={'/admin/edit'}>
-                            <span className="text-left"> Thông tin cá nhân</span>
-                          </Link>
-                        </button>
+                    {userInfo.role == 'admin' ? (
+                      /* Admin */
+                      <div>
+                        {openTab ? (
+                          <div className="flex flex-col w-1/2 items-start ml-12">
+                            <button onClick={() => setOpen(false)} className="my-3">
+                              <Link to={'/admin/products'}>
+                                <span className=" text-left"> Danh sách sản phẩm</span>
+                              </Link>
+                            </button>
+                            <button onClick={() => setOpen(false)} className="my-3">
+                              <Link to={'/admin/orders'}>
+                                <span className="text-left"> Đơn hàng</span>
+                              </Link>
+                            </button>
+                            <button onClick={() => setOpen(false)} className="my-3">
+                              <Link to={'/admin/edit'}>
+                                <span className="text-left"> Thông tin cá nhân</span>
+                              </Link>
+                            </button>
+                          </div>
+                        ) : (
+                          ''
+                        )}
                       </div>
                     ) : (
-                      ''
+                      /* User */
+                      <div>
+                        {openTab ? (
+                          <div className="flex flex-col w-1/2 items-start ml-12">
+                            <button onClick={() => setOpen(false)} className="my-3">
+                              <Link to={'/user/orders'}>
+                                <span className="text-left"> Đơn hàng</span>
+                              </Link>
+                            </button>
+                            <button onClick={() => setOpen(false)} className="my-3">
+                              <Link to={'/user/edit'}>
+                                <span className="text-left"> Thông tin cá nhân</span>
+                              </Link>
+                            </button>
+                          </div>
+                        ) : (
+                          ''
+                        )}
+                      </div>
                     )}
                   </div>
                 ) : (
-                  /* User */
-                  <div>
-                    {openTab ? (
-                      <div className="flex flex-col w-1/2 items-start ml-12">
-                        <button onClick={() => setOpen(false)} className="my-3">
-                          <Link to={'/user/orders'}>
-                            <span className="text-left"> Đơn hàng</span>
-                          </Link>
-                        </button>
-                        <button onClick={() => setOpen(false)} className="my-3">
-                          <Link to={'/user/edit'}>
-                            <span className="text-left"> Thông tin cá nhân</span>
-                          </Link>
-                        </button>
-                      </div>
-                    ) : (
-                      ''
-                    )}
-                  </div>
+                  ''
                 )}
               </Link>
             </li>
@@ -250,4 +256,7 @@ export default function Header(props: any) {
       )}
     </div>
   );
+}
+function dispatch(arg0: { payload: boolean; type: string }) {
+  throw new Error('Function not implemented.');
 }
