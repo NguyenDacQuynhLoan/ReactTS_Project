@@ -1,14 +1,27 @@
+import { useAppDispatch } from 'store/hooks';
+import { cleanCart } from 'store/reducer/cart';
+import { cleanInvoice } from 'store/reducer/invoice';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './payDone.scss';
-
 export default function Announcement() {
+  const dispatch = useAppDispatch();
+
+  useEffect(()=>{
+    setTimeout(()=>{
+
+      dispatch(cleanInvoice(true));
+      dispatch(cleanCart(true));
+    },6000)
+  },[])
   return (
-    <div className="announcement">
+    <div className="announcement ">
       <div className="announcement-container text-center">
         <div className="img">
           <img
-            src="https://previews.123rf.com/images/zo3listic/zo3listic1906/zo3listic190600011/125377412-check-icon-vector-check-mark-icon-check-list-button-icon-tick.jpg"
-            alt=""
+            // src="https://firebasestorage.googleapis.com/v0/b/shopping-online-16b07.appspot.com/o/Remove%20background.png?alt=media&token=ad82cb39-4a2b-4a49-b7c9-be738d26356b"
+            // alt=""
+            className='rounded-full h-1/5 w-2/5 mx-auto object-cover'
+            src="https://cliply.co/wp-content/uploads/2021/03/372103860_CHECK_MARK_400px.gif"
           />
         </div>
         <div className="heading">

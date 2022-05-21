@@ -11,18 +11,26 @@ export const createInvoice = createSlice({
   initialState,
   reducers: {
     addToInvoice(state = initialState, action: PayloadAction<IInvoice>) {
-        return {
-            invoice : action.payload
-
-        };
+      return {
+        invoice: action.payload,
+      };
     },
-    cleanInvoice(state = initialState, action:PayloadAction<boolean>){
-      if(action.payload == true){
-        state.invoice =[]
+
+    cleanInvoice(state = initialState, action: PayloadAction<boolean>) {
+      if (action.payload == true) {
+        state.invoice = [];
       }
-    }
+    },
+    addDateInvoice(state = initialState, action: PayloadAction<any>) {
+      console.log(action.payload);
+      let newInvoice = Object.assign(action.payload, state.invoice);
+      console.log('new', newInvoice);
+      return {
+        invoice: newInvoice,
+      };
+    },
   },
 });
 
-export const { addToInvoice,cleanInvoice } = createInvoice.actions;
+export const { addToInvoice, cleanInvoice, addDateInvoice } = createInvoice.actions;
 export default createInvoice.reducer;

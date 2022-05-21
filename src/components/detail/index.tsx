@@ -79,12 +79,12 @@ export default function Detail() {
                     alt=""
                   />
                 </div>
-                <div className=" flex w-full justify-center my-4">
+                <div className="flex w-full overflow-x-scroll justify-center my-4 md:lg:flex md:lg:w-full md:lg:justify-center md:lg:my-4">
                   {prod.imgArray.map((img: any, index2: number) => (
                     <img
                       key={index2}
                       onClick={() => selectImg(img)}
-                      className="secondary-img p-1 border-2 boreder-gray-300  mx-3 rounded hover:border-red-500 bg-white"
+                      className="secondary-img p-1 border-2 boreder-gray-300  mx-1 rounded hover:border-red-500 bg-white"
                       src={img}
                     />
                   ))}
@@ -97,9 +97,9 @@ export default function Detail() {
                   <span className="text-red-500 text-4xl md:lg:text-2xl md:lg:text-red-500">
                     {formatCurrency.format(prod.price)}
                   </span>
-                  <span>Màu sắc : Bạc</span>
+                  <span className="text-gray-500">Hãng : {prod.brand}</span>
                 </div>
-                <div className="inputQty">
+                <div className="inputQty flex justify-center py-3">
                   <button onClick={quantityPlus} className="bg-gray-300 rounded-2xl px-1">
                     <i className="fa fa-plus"></i>
                   </button>

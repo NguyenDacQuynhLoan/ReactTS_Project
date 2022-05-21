@@ -1,21 +1,41 @@
-import { useAppSelector } from 'store/hooks';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { RootState } from 'store/store';
 import './paySummary.tsx';
 import formatCurrency from '../currency';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { addDateInvoice } from 'store/reducer/invoice';
 export default function Summary() {
   const cartFromRedux = useAppSelector((state: RootState) => state.cart).cart;
   const invoiceFromRedux = useAppSelector((state: RootState) => state.invoice).invoice;
+  const [date, setDate] = useState('');
+  const [expectDate, setExpectDate] = useState('');
+  const [hours, setHours] = useState('');
+  const dispatch = useAppDispatch()
+
   useEffect(() => {
     getDateNow();
   }, []);
-  const getDateNow = () => {};
-  // const cartInvoice = cartFromRedux.slice(0, 4);
+  const getDateNow = () => {
+    let d = new Date();
+    d.setDate(d.getDate()+6);
+    let expectedDate = d.toJSON().slice(0, 10).replace(/-/g, '/');
+    let date = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
+    let hours = new Date(Date.now()).toLocaleString('vi').split(',')[0];
+
+    setExpectDate(expectedDate)
+    setDate(date);
+    setHours(hours);
+    let objDate = {
+      dateInvoice:date,
+      expectDateInvoice:expectedDate
+    }
+    dispatch(addDateInvoice(objDate))
+  };
   return (
     <div className="bg-gray-300 m-2 py-1 mt-3 rounded md:lg:bg-gray-300 md:lg:ml-4 md:lg:py-1 md:lg:mt-3 md:lg:rounded">
       <div className="mx-11 my-6">
         <div className="summary-heading my-2">
-          <span className="uppercase font-semibold text-2xl">Hóa đơn mua hàng</span>
+          <span onClick={getDateNow} className="uppercase font-semibold text-2xl">Hóa đơn mua hàng</span>
         </div>
         <div className="h-48  overflow-y-scroll">
           {cartFromRedux.map((element: any) => (
@@ -64,8 +84,10 @@ export default function Summary() {
           </div>
           <hr />
           <div className="summary-date flex flex-col my-2">
-            <span>Ngày mua : 14/03/2022</span>
-            <span>Ngày giao ( dự kiến ): 14/03/2022</span>
+            <span>
+              Ngày mua : {date} - {hours}
+            </span>
+            <span>Ngày giao ( dự kiến ): {expectDate}</span>
           </div>
         </div>
       </div>

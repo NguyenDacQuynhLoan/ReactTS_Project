@@ -12,7 +12,7 @@ import UserSidebar from '../../components/dashboard/users/sidebar';
 export default function UserDashboardPage() {
   return (
     <div className='flex'>
-      <div className='hidden md:lg:block' >
+      <div className='hidden md:lg:w-1/6 md:lg:block min-h-screen' >
       <UserSidebar />
       </div>
       <div className="w-full">

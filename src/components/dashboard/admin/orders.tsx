@@ -12,21 +12,14 @@ export default function AdminOrderState(props: any) {
   const [listOrders, setListOrders] = useState<any>();
   const [detailProductId, setDetailProductId] = useState<any>();
   const [userInfo, setUserInfo] = useState<any>();
-
   const [isDetail, setDetail] = useState(false);
-
-  // const addClass = useRef<any>();
   useEffect(() => {
-    // console.log(moment.locale())
-    // let temp = moment().format('MMMM Do YYYY, h:mm:ss a');
-    // console.log('temp',temp);
-
     getOrders();
-
     if (props.listOrders !== undefined) {
       setListOrders(props.listOrders);
     }
   }, []);
+
   const getOrders = () => {
     let listOrders: any = [];
     getDocs(collection(db, 'orders')).then((data) => {
@@ -105,10 +98,10 @@ export default function AdminOrderState(props: any) {
                     <td className="w-1/6 px-6 py-4 text-center text-red-500 font-semibold text-lg">
                       {formatCurrency.format(item.totalbill)}
                     </td>
-                    <td className="w-1/6 px-6 py-4 text-center">TK</td>
+                    <td className="w-1/6 px-6 py-4 text-center">{item.email}</td>
 
-                    <td className=" px-6 py-4">1/5/2022</td>
-                    <td className="w-1/6 px-6 py-4">6/7/2022</td>
+                    <td className=" px-6 py-4">{item.dateInvoice}</td>
+                    <td className="w-1/6 px-6 py-4">{item.expectDateInvoice}</td>
                     <td className="w-1/6 px-6 py-4 text-center">
                       {item.orderState ? (
                         <select

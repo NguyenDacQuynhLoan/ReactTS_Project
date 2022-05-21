@@ -2,32 +2,31 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './style.scss';
 import { auth, logout, useAuth } from '../../queries/api/firebase';
-import { useAppSelector } from 'store/hooks';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { RootState } from 'store/store';
 import { cleanUserInfo } from 'store/reducer/userInfo';
 
 export default function Header(props: any) {
   const userInfo = useAppSelector((state: RootState) => state.userInfo).userInfo;
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const currentUser = auth.currentUser;
   const [search, setSeach] = useState('');
   const [isOpen, setOpen] = useState(false);
   const [openTab, setOpenTab] = useState(false);
 
-  const currentUser = auth.currentUser;
-  const navigate = useNavigate();
-
+  useEffect(() => {}, [props]);
   const searching = (keyword: string) => {
     setSeach(keyword);
   };
-  useEffect(() => {}, [props]);
-  // const searching = (keyword: string) => {
-  //   setSeach(keyword);
-  // };
+
   const handleLogout = () => {
     logout(auth);
     dispatch(cleanUserInfo(true));
     localStorage.clear();
     navigate('/login');
   };
+
   return (
     <div className="header  ">
       <div className="wrapped ">
@@ -238,16 +237,16 @@ export default function Header(props: any) {
               </li>
             </Link>
             <li className="hover:bg-teal my-2">
-              <div
+              <button
                 onClick={() => {
-                  setOpen(false);
+                  // setOpen(false);
                   handleLogout();
                 }}
-                className="flex mx-3 gap-3 items-center"
+                className={currentUser ? 'flex mx-3 gap-3 items-center' : 'hidden'}
               >
                 <i className="fas fa-sign-out hover:text-orange-500 text-2xl"></i>
                 <span>Đăng xuất</span>
-              </div>
+              </button>
             </li>
           </ul>
         </nav>
@@ -256,7 +255,4 @@ export default function Header(props: any) {
       )}
     </div>
   );
-}
-function dispatch(arg0: { payload: boolean; type: string }) {
-  throw new Error('Function not implemented.');
 }

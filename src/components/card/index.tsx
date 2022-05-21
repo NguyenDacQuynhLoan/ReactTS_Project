@@ -3,18 +3,13 @@ import { RootState } from 'store/store';
 import { addToCart, quantityPlusCart } from 'store/reducer/cart';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import formatCurrency from '../currency';
-
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './style.scss';
-// import Modal from '../modal';
 
 export default function Card(props: any) {
   const [data, setData] = useState<any>();
-
   const dispatch = useAppDispatch();
-  // const cartFromRedux = useAppSelector((state: RootState) => state.cart).cart;
 
   useEffect(() => {
     setData(props.data);
@@ -54,7 +49,7 @@ export default function Card(props: any) {
                   <div className="addCart flex">
                     <button
                       onClick={() => addCart(prod)}
-                      className=" btn w-2/5 font-bold py-2  bg-blue-800 rounded text-white"
+                      className="w-12 h-12 font-bold py-2  bg-blue-800 rounded text-white md:lg:w-2/5 md:lg:font-bold md:lg:py-2  md:lg:bg-blue-800 md:lg:rounded md:lg:text-white"
                     >
                       <i className="fa fa-cart-plus"></i>{' '}
                     </button>
@@ -69,14 +64,3 @@ export default function Card(props: any) {
     </>
   );
 }
-// currency => number => send/add
-// prod.forEach((element: any) => {
-//   let group = new Intl.NumberFormat('vi').format(1111).replace(/1/g, ''); // "."
-//   let decimal = new Intl.NumberFormat('vi').format(1.1).replace(/1/g, ''); // ","
-//   let reversedVal = element.price.replace(new RegExp('\\' + group, 'g'), '');
-
-//   reversedVal = reversedVal
-//     .replace(new RegExp('\\' + decimal, 'g'), '.')
-//     .replace(/[^0-9\.-]+/g, '');
-//   element.price = Number.isNaN(reversedVal) ? 0 : reversedVal;
-// });

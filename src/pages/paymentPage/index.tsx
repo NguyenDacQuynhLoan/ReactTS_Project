@@ -1,22 +1,11 @@
 import './style.scss';
 import { Link } from 'react-router-dom';
-import { Outlet } from 'react-router-dom';
+import { Outlet, Navigate } from 'react-router-dom';
 import { useAppSelector } from 'store/hooks';
 import { RootState } from 'store/store';
-import { useEffect, useState } from 'react';
 
 export default function Payment() {
-  // const userInfo = useAppSelector((state: RootState) => state.userInfo).userInfo;
-  const [isDisable, setDisable] = useState(true);
-  useEffect(() => {
-    // if (
-    //   userInfoFromRedux.name != '' &&
-    //   userInfoFromRedux.phone != '' &&
-    //   userInfoFromRedux.address != ''
-    // ) {
-    //   setDisable(false);
-    // } else setDisable(true);
-  }, []);
+  const invoiceFromRedux = useAppSelector((state: RootState) => state.invoice).invoice;
 
   return (
     <div className="payment">

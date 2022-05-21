@@ -19,9 +19,9 @@ export default function Form() {
     const formValue = new FormData(e.target);
     let deliveryInfo = Object.fromEntries(formValue.entries());
     if (!Object.values(deliveryInfo).includes('')) {
-      dispatch(addToDelivery(deliveryInfo))
+      dispatch(addToDelivery(deliveryInfo));
       navigate('/payment/check');
-    }else{
+    } else {
       toast.warning('Vui lòng kiểm tra lại thông tin', {
         position: toast.POSITION.BOTTOM_RIGHT,
       });
@@ -74,8 +74,9 @@ export default function Form() {
               <div className="w-1/2 flex flex-col">
                 <p className="pb-2">Số điện thoại :</p>
                 <input
-                  
+                  placeholder="Nhập số điện thoại (10 số)"
                   name="numberDelivery"
+                  pattern="[0-9]{10}"
                   defaultValue={userInfo.phoneNumber}
                   className="focus:outline-none border border-gray-300 font-bold  px-2 py-1  rounded"
                 />
@@ -85,10 +86,12 @@ export default function Form() {
             <div className="w-full flex flex-col ">
               <p className="pb-2">Địa chỉ:</p>
               <input
+                pattern="(?=.*\d)(?=.*[a-z]).{8,}"
+                placeholder="Nhập số địa chỉ (8 kí tự)"
                 name="addressDelivery"
                 defaultValue={userInfo.address}
                 className="focus:outline-none border border-gray-300 font-bold  px-2 py-1  rounded"
-                />
+              />
             </div>
             {/* <div className="">
               <p className="pb-2">Ghi chú :</p>

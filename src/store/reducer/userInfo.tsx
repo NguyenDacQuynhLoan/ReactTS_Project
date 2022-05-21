@@ -12,6 +12,8 @@ export const userInfo = createSlice({
       };
     },
     cleanUserInfo(state = initialState, action: PayloadAction<boolean>) {
+      console.log(action.payload );
+      
       if (action.payload == true) {
         state.userInfo="";
       }

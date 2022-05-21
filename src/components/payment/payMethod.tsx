@@ -1,35 +1,38 @@
 import { auth, db, useAuth } from '../../queries/api/firebase';
 import { addDoc, collection, doc, getDocs, setDoc } from 'firebase/firestore';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { useAppSelector } from 'store/hooks';
 import { RootState } from 'store/store';
-import { useState } from 'react';
-import { cleanCart } from 'store/reducer/cart';
-import { cleanInvoice } from 'store/reducer/invoice';
+import { useEffect, useState } from 'react';
+
 export default function Method() {
   // const userInfoFromRedux = useAppSelector((state: RootState) => state.userInfo).userInfo;
   const cartFromRedux = useAppSelector((state: RootState) => state.cart).cart;
   const invoiceFromRedux = useAppSelector((state: RootState) => state.invoice).invoice;
   const userInfo = useAppSelector((state: RootState) => state.userInfo).userInfo;
-  const deliveryFromRedux = useAppSelector((state:RootState)=> state.delivery).delivery
-  const dispatch = useAppDispatch();
+  const deliveryFromRedux = useAppSelector((state: RootState) => state.delivery).delivery;
   const navigate = useNavigate();
   const [method, setMethod] = useState(false);
-
-  const addOrder =  async() => {
-     await addDoc(collection(db, 'orders'), {
+  useEffect(() => {
+    console.log(invoiceFromRedux);
+  }, []);
+  const addOrder = async () => {
+    await addDoc(collection(db, 'orders'), {
       amount: invoiceFromRedux.amount,
       ship: invoiceFromRedux.ship,
       totalbill: invoiceFromRedux.totalBill,
+      dateInvoice: invoiceFromRedux.dateInvoice,
+      expectDateInvoice: invoiceFromRedux.expectDateInvoice,
       name: deliveryFromRedux.userDelivery,
       address: deliveryFromRedux.addressDelivery,
       phoneNumber: deliveryFromRedux.numberDelivery,
       userID: userInfo.userID,
+      email: userInfo.email,
       orderState: 'confirm',
     }).then((data) => {
-      cartFromRedux.forEach( (item: any) => {
+      cartFromRedux.forEach((item: any) => {
         console.log(item);
-         setDoc(doc(db, `orders/${data.id}/product`,item.id), {
+        setDoc(doc(db, `orders/${data.id}/product`, item.id), {
           id: data.id,
           nameProd: item.name,
           brand: item.brand,
@@ -39,10 +42,7 @@ export default function Method() {
           image: item.imgArray,
         });
       });
-
-      dispatch(cleanCart(true));
-      dispatch(cleanInvoice(true));
-      navigate('/payment/done')
+      navigate('/payment/done');
     });
   };
   return (
