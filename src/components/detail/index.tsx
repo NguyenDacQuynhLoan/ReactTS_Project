@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from 'store/hooks';
-import { addToCart, quantityCart, quantityPlusCart } from 'store/reducer/cart';
+import { addToCart, quantityPlusCart } from 'store/reducer/cart';
 import { RootState } from 'store/store';
 import { useParams } from 'react-router-dom';
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
@@ -7,6 +7,8 @@ import { toast } from 'react-toastify';
 import formatCurrency from '../currency';
 import 'react-toastify/dist/ReactToastify.css';
 import './style.scss';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../queries/api/firebase';
 
 export default function Detail() {
   const cartFromRedux = useAppSelector((state: RootState) => state.cart).cart;
@@ -22,38 +24,14 @@ export default function Detail() {
   useEffect(() => {
     detailItem();
   }, [inventoryFromRedux]);
-
   const addCart = (item: any, id: string) => {
-    if (cartFromRedux.length === 0) {
-      dispatch(addToCart(item));
-      toast.success('Bạn đã thêm vào giỏ hàng !', {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
-    } else {
-      let flagUpdate: boolean = false;
-      cartFromRedux.forEach((element: any, index: number) => {
-        if (element.id === id) {
-          dispatch(
-            quantityCart({
-              id: index,
-              quantity: qty,
-            })
-          );
-          toast.success(`Đã thêm ${qty}`, {
-            position: toast.POSITION.BOTTOM_RIGHT,
-          });
-          flagUpdate = true;
-          return;
-        }
-      });
-
-      if (!flagUpdate) {
-        dispatch(addToCart(item));
-        toast.success('Bạn đã thêm vào giỏ hàng !', {
-          position: toast.POSITION.BOTTOM_RIGHT,
-        });
-      }
-    }
+    let { quantity, ...rest } = item;
+    let newProd = Object.assign(rest, { quantity: qty });
+    console.log(newProd);
+    dispatch(addToCart(newProd));
+    toast.success('Bạn đã thêm vào giỏ hàng !', {
+      position: toast.POSITION.BOTTOM_RIGHT,
+    });
   };
   const quantityController = (value: ChangeEvent<HTMLInputElement>) => {
     setQty(Number(value.target.value));
@@ -69,11 +47,16 @@ export default function Detail() {
     }
   };
 
-  const detailItem = () => {
-    let detailproduct: any = [];
-    let arr = inventoryFromRedux.find((element: any) => element.id === id);
-    detailproduct.push(arr);
-    setDetail(detailproduct);
+  const detailItem = async() => {
+    // let arr = inventoryFromRedux.find((element: any) => element.id === id);
+    // detailproduct.push(arr);
+    if(id){
+      let detailproduct: any = [];
+      let docRef = doc(db, 'products', id);
+      let getData = await getDoc(docRef);
+      detailproduct.push(getData.data())      
+      setDetail(detailproduct);
+    }
   };
   const selectImg = (img: any) => {
     setImg(img);

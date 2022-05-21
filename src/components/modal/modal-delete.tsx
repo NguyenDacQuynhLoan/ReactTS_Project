@@ -3,7 +3,6 @@ import { doc, updateDoc } from 'firebase/firestore';
 
 export default function DeleteModal(props: any) {
   const deletedController = () => {    
-    console.log(props.deleteData);
     if (props.deleteData) {
       
       const deleted = doc(db, 'products', props.deleteData);

@@ -12,6 +12,7 @@ export default function CategorySidebarMobile(props:any) {
     {id:4,name:'Phụ kiện'},
   ];
   const filterByCategory =(optionId:any)=>{
+
     props.filterCategory(optionId)
   }
   return (

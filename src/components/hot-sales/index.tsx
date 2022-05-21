@@ -61,39 +61,44 @@ export default function HotSale() {
         console.log(err.message);
       });
   };
-  const addCart = (item: any, id: string) => {
-    if (cartFromRedux.length === 0) {
-      dispatch(addToCart(item));
-      toast.success('Bạn đã thêm vào giỏ hàng !', {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
-    } else {
-      let flagUpdate: boolean = false;
-      cartFromRedux.forEach((element: any, index: number) => {
-        if (element.id === id) {
-          toast.warning('Điều chỉnh số lượng tại trang Giỏ hàng !', {
-            position: toast.POSITION.BOTTOM_RIGHT,
-          });
-          // element.quantity = element.quantity + 1;
-          // console.log(element.quantity);
-          flagUpdate = true;
-          return;
-        }
-      });
-      if (!flagUpdate) {
-        // cartFromRedux.push(item);
-        dispatch(addToCart(item));
-        toast.success('Bạn đã thêm vào giỏ hàng !', {
-          position: toast.POSITION.BOTTOM_RIGHT,
-        });
-      }
-    }
+  // const addCart = (item: any, id: string) => {
+  //   if (cartFromRedux.length === 0) {
+  //     dispatch(addToCart(item));
+  //     toast.success('Bạn đã thêm vào giỏ hàng !', {
+  //       position: toast.POSITION.BOTTOM_RIGHT,
+  //     });
+  //   } else {
+  //     let flagUpdate: boolean = false;
+  //     cartFromRedux.forEach((element: any, index: number) => {
+  //       if (element.id === id) {
+  //         toast.warning('Điều chỉnh số lượng tại trang Giỏ hàng !', {
+  //           position: toast.POSITION.BOTTOM_RIGHT,
+  //         });
+  //         // element.quantity = element.quantity + 1;
+  //         // console.log(element.quantity);
+  //         flagUpdate = true;
+  //         return;
+  //       }
+  //     });
+  //     if (!flagUpdate) {
+  //       // cartFromRedux.push(item);
+  //       dispatch(addToCart(item));
+  //       toast.success('Bạn đã thêm vào giỏ hàng !', {
+  //         position: toast.POSITION.BOTTOM_RIGHT,
+  //       });
+  //     }
+  //   }
 
-    // dispatch(addToCart(prod));
+  //   // dispatch(addToCart(prod));
 
-    // localStorage.setItem('user', JSON.stringify(prod));
+  //   // localStorage.setItem('user', JSON.stringify(prod));
+  // };
+  const addCart = (item: any) => {
+    dispatch(addToCart(item));
+    toast.success('Bạn đã thêm vào giỏ hàng !', {
+      position: toast.POSITION.BOTTOM_RIGHT,
+    });
   };
-
   return (
     <div className='sale my-5'>
       <div className="font-semibold text-xl  mx-6 my-3">Hot Deal</div>
@@ -131,7 +136,7 @@ export default function HotSale() {
 
                   <div className="addCart">
                     <button
-                      onClick={() => addCart(prod, prod.id)}
+                      onClick={() => addCart(prod)}
                       className=" btn w-full font-bold py-2 px-4 rounded text-white "
                     >
                       Thêm vào giỏ
@@ -172,7 +177,7 @@ export default function HotSale() {
 
                   <div className="addCart">
                     <button
-                      onClick={() => addCart(prod, prod.id)}
+                      onClick={() => addCart(prod)}
                       className=" btn w-full font-bold py-2 px-4 rounded text-white "
                     >
                       Thêm vào giỏ

@@ -29,9 +29,7 @@ export const storageRef = ref(storage, 'avatar');
 export const auth = getAuth(app);
 export const signup = (email, password) => {
   return createUserWithEmailAndPassword(auth, email, password)
-  //   .then((res) =>
-  //     sessionStorage.setItem('Auth Token', res._tokenResponse.refresh)
-  //   );
+
 };
 export const login = (email, password) => {
   return signInWithEmailAndPassword(auth, email, password);

@@ -5,37 +5,39 @@ import formatCurrency from '../currency';
 
 import './style.scss';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DeleteModal from '../modal/modal-delete';
-import { IProduct } from '../../types/product';
 
 export default function Order(props: any) {
   const dispatch = useAppDispatch();
   const cartFromRedux = useAppSelector((state: RootState) => state.cart).cart;
   const [deleteModal, setDeleteModal] = useState(false);
+  const [cartIndex, setCartIndex] = useState<number>(0); 
+  const [qty, setQty] = useState<number>(1);
   const [deleted, setDeleted] = useState('');
-
+  useEffect(()=>{},[cartFromRedux])
   const quantityPlus = (index: number) => {
     dispatch(quantityPlusCart(index));
+    // setQty(cartFromRedux[index].quantity)
   };
 
   const quantityMinus = (index: number) => {
-    if (cartFromRedux[index].quantity === 1) {
-    } else {
-      dispatch(quantityMinusCart(index));
+    if (cartFromRedux[index].quantity !== 1) {
+    dispatch(quantityMinusCart(index));
     }
   };
   const modalHandler = (confirm: boolean) => {
     setDeleteModal(confirm);
   };
-  const deleteHandler = (accept: boolean, e: IProduct) => {
+  const deleteHandler = (accept: boolean, index: number) => {
     if (accept) {
-      dispatch(removeCart(e));
+      dispatch(removeCart(index));
       setDeleteModal(false);
     }
   };
-  const deleteItem = () => {
+  const deleteItem = (index: number) => {
     setDeleteModal(true);
+    setCartIndex(index);
   };
 
   return (
@@ -54,7 +56,7 @@ export default function Order(props: any) {
                     />
                   </div>
                 </Link>
-                <div className="info-text flex flex-col mx-4">
+                <div  className="info-text flex flex-col mx-4">
                   <p>
                     <b> {e.name}</b>
                   </p>
@@ -75,9 +77,7 @@ export default function Order(props: any) {
                   value={e.quantity}
                   className="focus:outline-none rounded-lg  p-1 text-center"
                   type="number"
-                  name=""
-                  min="0"
-                  id=""
+                  min={1}
                 />
                 <button
                   onClick={() => quantityMinus(index)}
@@ -86,7 +86,7 @@ export default function Order(props: any) {
                   <i className="fa fa-minus"></i>
                 </button>
               </div>
-              <div onClick={() => deleteItem()} className="prod-delete">
+              <div onClick={() => deleteItem(index)} className="prod-delete">
                 <i className="fas fa-backspace "></i>
               </div>
             </div>
@@ -96,7 +96,7 @@ export default function Order(props: any) {
                 isModalOpen={modalHandler}
                 deleteData={deleted}
                 isDelete={(check: boolean) => {
-                  deleteHandler(check, e);
+                  deleteHandler(check, cartIndex);
                 }}
               />
             ) : (

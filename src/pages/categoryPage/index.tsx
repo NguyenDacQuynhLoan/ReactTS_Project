@@ -53,33 +53,32 @@ export default function Category() {
     if (key === 1) {
       setSort(inventoryFromRedux);
     }
-    setTimeout(() => {
-      if (key === 2) {
-        let sort = inventoryFromRedux
-          .slice()
-          .sort((a: any, b: any) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0));
-        setSort(sort);
-      }
-      if (key === 3) {
-        let sort = inventoryFromRedux
-          .slice()
-          .sort((a: any, b: any) => (a.name < b.name ? 1 : b.name < a.name ? -1 : 0));
-        setSort(sort);
-      }
-      if (key === 5) {
-        let sort = inventoryFromRedux.slice().sort((a: any, b: any) => a.price - b.price);
-        setSort(sort);
-      }
-      if (key === 4) {
-        let sort = inventoryFromRedux.slice().sort((a: any, b: any) => b.price - a.price);
-        setSort(sort);
-      }
-    }, 1000);
+    if (key === 2) {
+      let sort = inventoryFromRedux
+        .slice()
+        .sort((a: any, b: any) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0));
+      setSort(sort);
+    }
+    if (key === 3) {
+      let sort = inventoryFromRedux
+        .slice()
+        .sort((a: any, b: any) => (a.name < b.name ? 1 : b.name < a.name ? -1 : 0));
+      setSort(sort);
+    }
+    if (key === 5) {
+      let sort = inventoryFromRedux.slice().sort((a: any, b: any) => a.price - b.price);
+      setSort(sort);
+    }
+    if (key === 4) {
+      let sort = inventoryFromRedux.slice().sort((a: any, b: any) => b.price - a.price);
+      setSort(sort);
+    }
   };
   const filterByCategory = (e: any) => {
+    setIsSort(true);
     if (Number(e) == 1) {
       let newProd = product.filter((item: any) => item.category == 'phone');
-      setSort(newProd);
+      setSort([...newProd]);
     } else if (Number(e) == 2) {
       let newProd = product.filter((item: any) => item.category == 'laptop');
       setSort(newProd);
