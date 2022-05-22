@@ -47,14 +47,14 @@ export default function Detail() {
     }
   };
 
-  const detailItem = async() => {
+  const detailItem = async () => {
     // let arr = inventoryFromRedux.find((element: any) => element.id === id);
     // detailproduct.push(arr);
-    if(id){
+    if (id) {
       let detailproduct: any = [];
       let docRef = doc(db, 'products', id);
       let getData = await getDoc(docRef);
-      detailproduct.push(getData.data())      
+      detailproduct.push(getData.data());
       setDetail(detailproduct);
     }
   };
@@ -79,7 +79,7 @@ export default function Detail() {
                     alt=""
                   />
                 </div>
-                <div className="flex w-full overflow-x-scroll justify-center my-4 md:lg:flex md:lg:w-full md:lg:justify-center md:lg:my-4">
+                <div className="flex w-full overflow-auto justify-center my-4 md:lg:overflow-auto md:lg:flex md:lg:w-full md:lg:justify-center md:lg:my-4">
                   {prod.imgArray.map((img: any, index2: number) => (
                     <img
                       key={index2}
