@@ -8,6 +8,7 @@ User:
 - Thêm vào giỏ hàng
 - Đặt hàng
 - Theo dõi đơn hàng
+- Chỉnh sửa thông tin cá nhân
 
 Admin : 
 * tk: admin@gmail.com ; pw: 123123
