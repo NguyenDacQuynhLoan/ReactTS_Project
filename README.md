@@ -1,5 +1,5 @@
-Project Web bán hàng: 
-HTML5,SCSS,Javascript ES6
+Project Web bán hàng (ReactTS):
+
 Thư viện: Redux Toolkit, React-Slick, React-Dom, Toast
 
 User: 
