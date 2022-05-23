@@ -1,6 +1,6 @@
 Project Web bán hàng: 
 HTML5,SCSS,Javascript ES6
-Thư viện: Redux, React-Slick, React-Dom, Toast
+Thư viện: Redux Toolkit, React-Slick, React-Dom, Toast
 
 User: 
 - Đăng nhập bằng tài khoản google hoặc tài khoản đã đăng ký, đăng ký
