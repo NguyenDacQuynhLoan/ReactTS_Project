@@ -8,11 +8,10 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart(state = initialState, action: PayloadAction<IProduct>) {
-      console.log(action.payload);
 
       let product = state.cart.find((element: any) => element.id == action.payload.id);
       if (!product) {
-        state.cart.push(action.payload);
+        state.cart.push(action.payload);  
         localStorage.setItem('cart', JSON.stringify(state.cart));
       } else {
         let newCart = state.cart;

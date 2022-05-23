@@ -10,34 +10,36 @@ export default function Summary() {
   const [date, setDate] = useState('');
   const [expectDate, setExpectDate] = useState('');
   const [hours, setHours] = useState('');
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     getDateNow();
   }, []);
   const getDateNow = () => {
     let d = new Date();
-    d.setDate(d.getDate()+6);
+    d.setDate(d.getDate() + 6);
     let expectedDate = d.toJSON().slice(0, 10).replace(/-/g, '/');
     let date = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
     let hours = new Date(Date.now()).toLocaleString('vi').split(',')[0];
 
-    setExpectDate(expectedDate)
+    setExpectDate(expectedDate);
     setDate(date);
     setHours(hours);
     let objDate = {
-      dateInvoice:date,
-      expectDateInvoice:expectedDate
-    }
-    dispatch(addDateInvoice(objDate))
+      dateInvoice: date,
+      expectDateInvoice: expectedDate,
+    };
+    dispatch(addDateInvoice(objDate));
   };
   return (
     <div className="bg-gray-300 m-2 py-1 mt-3 rounded md:lg:bg-gray-300 md:lg:ml-4 md:lg:py-1 md:lg:mt-3 md:lg:rounded">
       <div className="mx-11 my-6">
         <div className="summary-heading my-2">
-          <span onClick={getDateNow} className="uppercase font-semibold text-2xl">Hóa đơn mua hàng</span>
+          <span onClick={getDateNow} className="uppercase font-semibold text-2xl">
+            Hóa đơn mua hàng
+          </span>
         </div>
-        <div className="h-48  overflow-y-scroll">
+        <div className="h-48  overflow-auto">
           {cartFromRedux.map((element: any) => (
             <div key={element.id} className="summary-product flex items-center my-2">
               <div className="product-img mx-5">

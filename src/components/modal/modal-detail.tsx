@@ -50,7 +50,7 @@ export default function DetailModal(props: any) {
                   key={item.id}
                   className=" flex my-1 py-1 bg-gray-50 hover:bg-gray-100 duration-500"
                 >
-                  <img className="h-20 w-20" src={item.image[0]} alt="" />
+                  <img className="h-20 w-20 object-contain" src={item.image[0]} alt="" />
                   <div className="flex flex-col">
                     <span>{item.nameProd}</span>
                     <span>{formatCurrency.format(item.price)}</span>

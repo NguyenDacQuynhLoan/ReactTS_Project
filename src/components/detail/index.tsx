@@ -24,11 +24,16 @@ export default function Detail() {
   useEffect(() => {
     detailItem();
   }, [inventoryFromRedux]);
-  const addCart = (item: any, id: string) => {
+  const addCart = (item: any) => {
+    console.log('item', item);
+
     let { quantity, ...rest } = item;
+    console.log('rest', rest);
+
     let newProd = Object.assign(rest, { quantity: qty });
-    console.log(newProd);
+
     dispatch(addToCart(newProd));
+
     toast.success('Bạn đã thêm vào giỏ hàng !', {
       position: toast.POSITION.BOTTOM_RIGHT,
     });
@@ -54,7 +59,11 @@ export default function Detail() {
       let detailproduct: any = [];
       let docRef = doc(db, 'products', id);
       let getData = await getDoc(docRef);
-      detailproduct.push(getData.data());
+      // console.log(id);
+
+      detailproduct.push(Object.assign(getData.data(), { id: id }));
+      console.log(detailproduct);
+
       setDetail(detailproduct);
     }
   };
@@ -141,7 +150,7 @@ export default function Detail() {
                 </div>
                 <div className="buy ">
                   <button
-                    onClick={() => addCart(prod, prod.id)}
+                    onClick={() => addCart(prod)}
                     className=" w-full flex flex-col p-2 my-5 text-center rounded-lg bg-orange-500 border-2 border-orange-700"
                   >
                     <span className=" font-semibold mx-auto text-xl text-white">Thêm giỏ hàng</span>

@@ -31,7 +31,6 @@ export default function Method() {
       orderState: 'confirm',
     }).then((data) => {
       cartFromRedux.forEach((item: any) => {
-        console.log(item);
         setDoc(doc(db, `orders/${data.id}/product`, item.id), {
           id: data.id,
           nameProd: item.name,
@@ -42,8 +41,8 @@ export default function Method() {
           image: item.imgArray,
         });
       });
-      navigate('/payment/done');
     });
+    navigate('/payment/done');
   };
   return (
     <div className="method p-4 md:lg:p-0">
